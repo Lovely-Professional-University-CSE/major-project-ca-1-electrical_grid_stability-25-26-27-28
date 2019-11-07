@@ -1,9 +1,16 @@
-
+#Normal traing of data without preprocessing since the dataset do not have an
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-"""class Perceptron(object):
+data=pd.read_csv('Data_for_UCI_named.csv')
+print(data.head())
+y=data['stabf'].values
+print(y)
+X=data.drop(['stabf'],axis=1).values
+y=np.where(y=='stable',1,-1)
+print(y)
+class Perceptron(object):
 
         def __init__(self, eta, n_iter):
                 self.eta = eta
@@ -29,19 +36,12 @@ import seaborn as sns
                 return np.dot(X, self.w_[1:]) + self.w_[0]
 
         def predict(self, X):
-                return np.where(self.net_input(X) >= 0.0, 1, -1) """
+                return np.where(self.net_input(X) >= 0.0, 1, -1) 
 
-data=pd.read_csv('Data_for_UCI_named.csv')
-print(data.head())
-y=data['stabf'].values
-print(y)
-X=data.drop(['stabf'],axis=1).values
-y=np.where(y=='stable',1,-1)
-print(y)
 from sklearn.model_selection import train_test_split
 X_train,X_test,y_train,y_test=train_test_split(
         X,y,test_size=0.2,random_state=0)
-from sklearn.linear_model import Perceptron
+"""from sklearn.linear_model import Perceptron""""
 ppn=Perceptron(n_iter_no_change=400, eta0=0.4)
 print(X_train)
 ppn.fit(X_train, y_train)
