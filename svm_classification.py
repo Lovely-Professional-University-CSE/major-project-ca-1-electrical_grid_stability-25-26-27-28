@@ -4,7 +4,7 @@ import sklearn as sk
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
-import seaborn as sn
+import seaborn as sns
 from sklearn.externals import joblib
 import glob
 
@@ -16,8 +16,14 @@ labels = df['stabf']
 df.drop(columns='stabf', inplace=True)
 #print('features sample : ', df.head())
 labels = labels.map({'unstable':0, 'stable':1})
+df['labels'] = labels
+corr = df.corr()
+sns.heatmap(corr,
+        xticklabels=corr.columns,
+        yticklabels=corr.columns)
+
 #print('Labels sample : ', labels.head())
-x_train, x_test, y_train, y_test = train_test_split(df, labels, test_size=0.25, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(df[df.columns[0:13]], labels, test_size=0.25, random_state=42)
 print('train_features : {}, train_labels : {}'.format(x_train.shape, y_train.shape))
 print('test_features : {}, test_labels : {}'.format(x_test.shape, y_test.shape))
 
