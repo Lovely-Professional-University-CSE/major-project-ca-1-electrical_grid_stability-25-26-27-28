@@ -1,0 +1,9 @@
+Shape of the DataSET:              (10000, 14)
+Size of stable and unstable data:  stabf
+stable      3620
+unstable    6380
+dtype: int64
+Shape of trained Data:             (8000, 13)
+Shape of tested Data:              (2000, 13)
+Misclassified samples:             8
+Testing Data Accuracy:             0.996
