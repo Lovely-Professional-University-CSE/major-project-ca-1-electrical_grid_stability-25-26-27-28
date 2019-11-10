@@ -32,7 +32,30 @@ def description():
         count+=1
 
 def maps():
-    pass
+    root = tk.Toplevel()
+    root.title(10 * "\t" + "SVM HOME")
+    width = root.winfo_screenwidth()
+    height = root.winfo_screenheight()
+    root.geometry(f'{width}x{height}')
+    frame = tk.Frame(root, width=width, height=height)
+    frame.pack()
+    canvas = tk.Canvas(frame, width=width, height=height, bg="grey")
+    canvas.pack()
+
+    for file in os.listdir('proimages'):
+        img = Image.open('proimages/'+file)
+        img = img.resize((600, 400), Image.ANTIALIAS)
+        img.save(file)
+
+    img = tk.PhotoImage(file='box.png')
+    canvas.create_image(50, 10, image=img, anchor="nw")
+    img1 = tk.PhotoImage(file='scatter.png')
+    canvas.create_image(750, 10, image=img1, anchor="nw")
+    img2 = tk.PhotoImage(file='count.png')
+    canvas.create_image(50, 400, image=img2, anchor="nw")
+    img3 = tk.PhotoImage(file='density.png')
+    canvas.create_image(750, 400, image=img3, anchor="nw")
+    root.mainloop()
 
 def trained_model():
     try:
