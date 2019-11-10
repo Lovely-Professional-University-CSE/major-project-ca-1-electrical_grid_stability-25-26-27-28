@@ -13,7 +13,25 @@ import glob
 import seaborn as sns
 import pickle
 
-def fit_the_model():
+def description():
+
+    root = tk.Tk()
+    root.title(10 * "\t" + "SVM")
+    width = root.winfo_screenwidth()
+    height = root.winfo_screenheight()
+    root.geometry(f'{width}x{height}')
+    frame = tk.Frame(root, width=width, height=height)
+    frame.pack()
+    canvas = tk.Canvas(frame, width=width, height=height, bg="lightblue")
+    canvas.pack()
+    f = open("PerceptronData.txt", "r").readlines()
+    count = 0
+    for line in f:
+
+        canvas.create_text(700, 200+(count*40), text=line, font=('Helvetica', 30, 'bold'), fill='red')
+        count+=1
+
+def maps():
     pass
 
 def trained_model():
@@ -25,7 +43,6 @@ def trained_model():
             x_test, y_test = lists[0], lists[1]
         pred = saved_model.predict(x_test)
         accuracy = accuracy_score(pred, y_test)
-        #print('accuracy : ', accuracy_score(pred, y_test))
     except:
         print('there is no pretrained model')
 
@@ -39,7 +56,8 @@ def trained_model():
     canvas = tk.Canvas(frame, width=width, height=height, bg="lightblue")
     canvas.pack()
     canvas.create_text(700, 300, text='ACCURACY : '+str(accuracy), font = ('Helvetica', 30, 'bold'), fill='red')
-    tk.Button(canvas, text = 'Description', bg="lightblue", height=3, width=50).place(x=525, y=350)
+    tk.Button(canvas, text = 'Description',command= description, bg="lightblue", height=3, width=50).place(x=525, y=350)
+    tk.Button(canvas, text = 'Maps', command=maps, bg="lightblue", height=3, width=50).place(x=525, y=410)
 
 
 def custom_train():
@@ -77,7 +95,6 @@ def svm_home():
                                     'it into one of two categories.An SVM outputs a map of the sorted\n'
                                     ' data with the margins between the two as far apart as possible.',
                        font = ('Helvetica',15, 'bold'), fill='red')
-
     tk.Button(canvas, text = "trained_model", bg = "lightblue", command = trained, height=3, width=50).place(x = 1100, y=310)
     tk.Button(canvas, text="custom_train", bg="lightblue", command=custom, height=3, width=50).place(x=1100, y=380)
     tk.Button(canvas, text = 'back', bg="lightblue", command=back, height=3, width=50).place(x=1100, y=480)
