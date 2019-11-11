@@ -47,10 +47,10 @@ def graphs():
     canvas = tk.Canvas(frame, width=width, height=height, bg="grey")
     canvas.pack()
 
-    for file in os.listdir('proimages'):
-        img = Image.open('proimages/'+file)
-        img = img.resize((600, 400), Image.ANTIALIAS)
-        img.save(file)
+    # for file in os.listdir('proimages'):
+    #     img = Image.open('proimages/'+file)
+    #     img = img.resize((600, 400), Image.ANTIALIAS)
+    #     img.save(file)
 
     img = tk.PhotoImage(file='box.png')
     canvas.create_image(50, 10, image=img, anchor="nw")
@@ -90,7 +90,10 @@ def trained_model():
     root.mainloop()
 
 def custom_train():
-    root = tk.Tk()
+    def back():
+        root.destroy()
+        svm_home()
+    root = tk.Toplevel()
     root.title(10 * "\t" + "SVM HOME")
     width = root.winfo_screenwidth()
     height = root.winfo_screenheight()
@@ -157,7 +160,7 @@ def custom_train():
         else:
             state = 'Stable'
         messagebox.showinfo('Result', 'The electric grid with your given data is %s electric Grid' % (state))
-        finw = Tk()
+        finw = tk.Toplevel()
         finw.title('User Data Form')
         finw.geometry('1350x750+0+0')
         finw.config(bg='lightblue')
@@ -182,6 +185,8 @@ def custom_train():
 
     Btn = Button(root, text="Submit", bg = 'lightblue', width=15, font=('arial', 15, 'bold'),command=Function)
     Btn.place(x=900, y=580)
+    Btn = Button(root, text="back", bg='lightblue', width=15, font=('arial', 15, 'bold'), command=back)
+    Btn.place(x=900, y=640)
     root.mainloop()
 
 def svm_home():
@@ -194,11 +199,8 @@ def svm_home():
         root.destroy()
         custom_train()
 
-    def back():
-        root.destroy()
-        print('put your home file hear')
 
-    root = tk.Tk()
+    root = tk.Toplevel()
     root.title(10*"\t"+"SVM HOME")
     width = root.winfo_screenwidth()
     height = root.winfo_screenheight()
@@ -218,7 +220,6 @@ def svm_home():
                        font = ('Helvetica',15, 'bold'), fill='red')
     tk.Button(canvas, text = "trained_model", bg = "lightblue", command = trained, height=3, width=50).place(x = 1100, y=310)
     tk.Button(canvas, text="custom_train", bg="lightblue", command=custom, height=3, width=50).place(x=1100, y=380)
-    tk.Button(canvas, text = 'back', bg="lightblue", command=back, height=3, width=50).place(x=1100, y=480)
+    tk.Button(canvas, text = 'back', bg="lightblue", height=3, width=50).place(x=1100, y=480)
     root.mainloop()
 
-svm_home()
