@@ -8,11 +8,17 @@ from tkinter import messagebox
 from tkinter import messagebox
 import pickle
 import perceptron
-from perceptron import Perceptron  
+from perceptron import Perceptron
+import svm_gui as svm
+import lvq_gui as lvq
+
+
 r= Tk()
 #======================================
 r.title('Home Page')
-r.geometry('1350x750+0+0')
+width = r.winfo_screenwidth()
+height = r.winfo_screenheight()
+r.geometry(f'{width}x{height}')
 r.config(bg='brown')
 background_imag = PhotoImage(file="i2.png")
 backgrounda = Label(r, image=background_imag, bd=0)
@@ -66,7 +72,9 @@ backgrounda1.pack()
 def user_form():
     fw= Toplevel()
     fw.title('User Data Form')
-    fw.geometry('1350x750+0+0')
+    width = fw.winfo_screenwidth()
+    height = fw.winfo_screenheight()
+    fw.geometry(f'{width}x{height}')
     fw.config(bg='brown')
     background_imag = PhotoImage(file="form.png")
     backgrounda = Label(fw, image=background_imag, bd=0)
@@ -125,7 +133,9 @@ def user_form():
         messagebox.showinfo('Result','The electric grid with your given data is %s electric Grid'%(state))
         finw=Tk()
         finw.title('User Data Form')
-        finw.geometry('1350x750+0+0')
+        width = finw.winfo_screenwidth()
+        height = finw.winfo_screenheight()
+        finw.geometry(f'{width}x{height}')
         finw.config(bg='aqua')
         l=Label(finw,font=('Times New Roman',20,'bold italic'),text='The Electric Grid with your given inputs is ',fg='black',bd=10,anchor='w',bg='aqua')
         l.place(x=200,y=200)
@@ -142,16 +152,38 @@ def user_form():
     Btn = Button(fw, text = "Submit",width=15,font=('arial',15,'bold'),bg='powder blue',relief='sunken',command=Function)
     Btn.place(x=900,y=580)
     fw.mainloop()
+################
+def svm_window():
+
+    svm.svm_home()
+
+#################
+def lvq_window():
+    lvq.lvq_model()
 
 
-
+def som_window():
+    root = tk.Tk()
+    root.title(10 * "\t" + "DESCRIPTION")
+    width = root.winfo_screenwidth()
+    height = root.winfo_screenheight()
+    root.geometry(f'{width}x{height}')
+    frame = tk.Frame(root, width=width, height=height)
+    frame.pack()
+    canvas = tk.Canvas(frame, width=width, height=height, bg="gray")
+    canvas.pack()
+    canvas.create_text(700, 200, text='SOM OPTIMISATION :', font=('Helvetica', 30, 'bold'), fill='red')
+    canvas.create_text(700, 300, text='ACCURACY : 85.012', font = ('Helvetica', 30, 'bold'), fill='red')
+    root.mainloop()
 
 
 #################
 def Perceptron_Window():
     pw=Toplevel()
     pw.title("Perceptron")
-    pw.geometry('1350x750+0+0')
+    width = pw.winfo_screenwidth()
+    height = pw.winfo_screenheight()
+    pw.geometry(f'{width}x{height}')
     background_imag2 = PhotoImage(file="Percep.png")
     backgrounda = Label(pw, image=background_imag2, bd=0)
     backgrounda.pack()
@@ -182,7 +214,9 @@ def Perceptron_Window():
     def trained():
         tw=Tk()
         tw.title("Perceptron")
-        tw.geometry('1350x750+0+0')
+        width = tw.winfo_screenwidth()
+        height = tw.winfo_screenheight()
+        tw.geometry(f'{width}x{height}')
         tw.config(bg="DeepSkyBlue")
         l=Label(tw,font=('Times New Roman',30,'bold italic'),text="Results after Training the network",fg='black',bd=10,anchor='w',bg='DeepSkyBlue')
         l.place(x=300,y=30)
@@ -212,6 +246,8 @@ def Perceptron_Window():
         l.place(x=5,y=230)
         l=Label(f2,font=('Times New Roman',20,'bold italic'),text=a[8],fg='black',bd=10,anchor='w',bg='DeepSkyblue')
         l.place(x=5,y=290)
+        l = Label(f2, font=('Times New Roman', 20, 'bold italic'), text=a[8], fg='black', bd=10, anchor='w',bg='DeepSkyblue')
+        l.place(x=5, y=330)
         l=Label(tw,font=('Times New Roman',20,'bold italic'),text=" Check the Results With your own inputs........ ",fg='black',bd=10,anchor='w',bg='DeepSkyBlue')
         l.place(x=250,y=450)
 ##########################
@@ -235,7 +271,9 @@ def Perceptron_Window():
 def model_window():
     mw=Toplevel()
     mw.title('DATA PREDICTION')
-    mw.geometry('1350x750+0+0')
+    width = mw.winfo_screenwidth()
+    height = mw.winfo_screenheight()
+    mw.geometry(f'{width}x{height}')
     background_imag2 = PhotoImage(file="i6.png")
     backgrounda = Label(mw, image=background_imag2, bd=0)
     backgrounda.pack()
@@ -245,11 +283,11 @@ def model_window():
     l.place(x=430,y=80)    
     btnl=Button(mw,text='Perceptron Model', width=30,font=('arial',20,'bold'),bg='white',command=Perceptron_Window)
     btnl.place(x=0,y=300)
-    btnl=Button(mw,text='SOM Model', width=30,font=('arial',20,'bold'),bg='white')
+    btnl=Button(mw,text='LVQ Model', width=30,font=('arial',20,'bold'),bg='white', command=lvq_window)
     btnl.place(x=0,y=400)
-    btnl=Button(mw,text='SVM Model', width=30,font=('arial',20,'bold'),bg='white')
+    btnl=Button(mw,text='SVM Model', width=30,font=('arial',20,'bold'),bg='white', command=svm_window)
     btnl.place(x=0,y=500)
-    btnl=Button(mw,text='LVQ Model', width=30,font=('arial',20,'bold'),bg='white')
+    btnl=Button(mw,text='SOM Model', width=30,font=('arial',20,'bold'),bg='white', command=som_window)
     btnl.place(x=0,y=600)
     mw.mainloop()
 embed2=Frame(r,width=500,height=100)
@@ -258,5 +296,5 @@ l2=Label(embed2,font=('Times New Roman',18,'bold italic'),text='Click to Go to t
 l2.place(x=4,y=5)
 Btn = Button(embed2, text = "GO",width=15,font=('Times New Roman',15,'bold italic'),bg='orange',relief='ridge',command=model_window)
 Btn.place(x=160,y=50)
-
+r.mainloop()
 
